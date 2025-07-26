@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
         // V = X/T
         Vector3 velocity = (transform.position - previousPosition) / Time.deltaTime;
         playerSpeed = velocity.magnitude;
-        speedText.text = "Speed: " + playerSpeed.ToString("F2");
+        // speedText.text = "Speed: " + playerSpeed.ToString("F2");
 
         previousPosition = transform.position;
     }
