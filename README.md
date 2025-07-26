@@ -1,2 +1,0 @@
-# GarbageManSimulator
-Garbage collecting simulator.
