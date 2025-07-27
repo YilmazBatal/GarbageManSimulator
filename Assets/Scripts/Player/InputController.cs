@@ -39,4 +39,11 @@ public class InputController : MonoBehaviour
             playerInteraction.TryThrow();
         }
     }
+    void OnEscape(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            UIManager.Instance.ClosePanel();
+        }
+    }
 }

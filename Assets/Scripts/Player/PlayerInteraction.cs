@@ -19,30 +19,34 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange)) { // Check if the ray hits an object within the interaction range
-            IInteractable target = hit.collider.GetComponent<IInteractable>(); 
+        if (!UIManager.Instance.isAnyPanelOpen)
+        { // If any UI panel is open, disable interaction
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+            { // Check if the ray hits an object within the interaction range
+                IInteractable target = hit.collider.GetComponent<IInteractable>();
 
-            if (target != null) // if ray was hit by an interactable object
-            {
-                if (hit.collider.gameObject != lastOutlinedObject) // if the item player looks at is different from the last object that player looked at 
+                if (target != null) // if ray was hit by an interactable object
                 {
-                    DisableLastOutline();
-
-                    Outline outline = hit.collider.GetComponent<Outline>();
-                    if (outline != null)
+                    if (hit.collider.gameObject != lastOutlinedObject) // if the item player looks at is different from the last object that player looked at 
                     {
-                        outline.enabled = true;
-                        lastOutlinedObject = hit.collider.gameObject;
-                    }
-                }
+                        DisableLastOutline();
 
-                currentTarget = target;
-                return; // Successfully opened outline, early exit
+                        Outline outline = hit.collider.GetComponent<Outline>();
+                        if (outline != null)
+                        {
+                            outline.enabled = true;
+                            lastOutlinedObject = hit.collider.gameObject;
+                        }
+                    }
+
+                    currentTarget = target;
+                    return; // Successfully opened outline, early exit
+                }
             }
         }
         // If no interactable object is found, disable the last outline and reset current target
-        currentTarget = null;
+            currentTarget = null;
         DisableLastOutline();
     }
 
