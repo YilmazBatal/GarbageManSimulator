@@ -58,6 +58,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (UIManager.Instance.isAnyPanelOpen)
+        {
+            // If any UI panel is open, disable player controls
+            moveInput = new Vector3(0,0, verticalVelocity); // Reset everyting except gravity (no idea why its works in z instead of y)
+            lookInput = Vector2.zero;
+            sprintInput = false;
+        }
         MovementUpdate();
         LookUpdate();
         AdjustCameraSettings();
