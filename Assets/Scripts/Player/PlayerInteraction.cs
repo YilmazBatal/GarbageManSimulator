@@ -11,10 +11,25 @@ public class PlayerInteraction : MonoBehaviour
     GameObject heldItem;
     GameObject lastOutlinedObject;
 
+
+    [Header("Player Pushable Object Settings")]
+    public float pushPower = 5f; 
+
     void Start()
     {
         playerHand = gameObject.transform.GetChild(0).transform.Find("Hand").gameObject; // Assuming the player's hand is a child of the player GameObject
         trashObject = GameObject.Find("Trash"); // Find the trash object in the scene
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Pushable"))
+        {
+            Vector3 pushDir = hit.transform.position - transform.position;
+            pushDir.y = 0;
+            Rigidbody pushableRB = hit.gameObject.GetComponent<Rigidbody>();
+            pushableRB.AddForce(pushDir.normalized * pushPower, ForceMode.Impulse);
+        }
     }
 
     void Update()
@@ -78,5 +93,3 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 }
-
-// do throwing item and holding in hand logic

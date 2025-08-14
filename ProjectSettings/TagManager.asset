@@ -9,6 +9,7 @@ TagManager:
   - CinemachineTarget
   - Item
   - Trash
+  - Pushable
   layers:
   - Default
   - TransparentFX
