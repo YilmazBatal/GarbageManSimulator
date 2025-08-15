@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ea912bbf3e3a64d90c24e1502784b8, type: 3}
+  m_Name: VintageMug
+  m_EditorClassIdentifier: 
+  trashName: Vintage Mug
+  trashDescription: Some people would have pay for this.
+  rarity: Uncommon
+  weight: 2.5
+  value: 1
+  isToxic: 0
+  isRecyclable: 1
+  trashIcon: {fileID: -7907368816393526887, guid: 215687feeab0b7445b4a1cd86c82c2e1,
+    type: 3}
+  trashPrefab: {fileID: 3093585832671737841, guid: b62255c42ea48f04aa1f23b246142d99,
+    type: 3}

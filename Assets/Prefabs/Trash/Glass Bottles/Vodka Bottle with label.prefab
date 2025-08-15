@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1444849005760471628}
   - component: {fileID: 4112388922274550087}
   - component: {fileID: 5154692702828744844}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: -3452923945433648963}
   - component: {fileID: -425705269878516058}
   - component: {fileID: 3818481302271797008}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Vodka Bottle with label
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a243687c4201f09409575e7c4202b87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trashData: {fileID: 0}
 --- !u!114 &3818481302271797008
 MonoBehaviour:
   m_ObjectHideFlags: 0

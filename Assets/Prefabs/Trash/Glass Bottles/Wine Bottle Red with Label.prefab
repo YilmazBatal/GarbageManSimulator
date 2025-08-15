@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2787897458681892140}
   - component: {fileID: -5437349384582100949}
   - component: {fileID: 8582160859179136370}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wine Bottle Red with Label
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a243687c4201f09409575e7c4202b87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trashData: {fileID: 0}
 --- !u!114 &8582160859179136370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +181,7 @@ GameObject:
   - component: {fileID: 3900930354140350912}
   - component: {fileID: 4860603934817578640}
   - component: {fileID: 1275304790552972300}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8185183805040533815}
   - component: {fileID: 8893859175130647327}
   - component: {fileID: 2103824957955301935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ring Pull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: -1370846706039041518}
   - component: {fileID: -4937309027157413401}
   - component: {fileID: -5114338412657678142}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Beer Can Blue
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a243687c4201f09409575e7c4202b87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trashData: {fileID: 0}
 --- !u!114 &-5114338412657678142
 MonoBehaviour:
   m_ObjectHideFlags: 0

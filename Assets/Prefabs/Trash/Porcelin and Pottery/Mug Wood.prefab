@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 3109353249092467418}
   - component: {fileID: -4924111403302060547}
   - component: {fileID: -2521176118180142451}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mug Wood
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a243687c4201f09409575e7c4202b87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trashData: {fileID: 11400000, guid: cf191287b74d4ed4eafd63398ce8b134, type: 2}
 --- !u!114 &-2521176118180142451
 MonoBehaviour:
   m_ObjectHideFlags: 0

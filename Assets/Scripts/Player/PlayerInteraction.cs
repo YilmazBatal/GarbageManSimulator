@@ -23,7 +23,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.CompareTag("Pushable"))
+        if (hit.gameObject.CompareTag("Pushable") || hit.gameObject.CompareTag("Trash"))
         {
             Vector3 pushDir = hit.transform.position - transform.position;
             pushDir.y = 0;

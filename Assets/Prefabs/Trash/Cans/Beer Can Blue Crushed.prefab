@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 1139878934128806084}
   - component: {fileID: 495137837320027427}
   - component: {fileID: 355100081317592473}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Beer Can Blue Crushed
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a243687c4201f09409575e7c4202b87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trashData: {fileID: 0}
 --- !u!114 &355100081317592473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +181,7 @@ GameObject:
   - component: {fileID: 2590474680911664639}
   - component: {fileID: 5147636321756516616}
   - component: {fileID: 3264153014851779684}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ring Pull
   m_TagString: Untagged
   m_Icon: {fileID: 0}

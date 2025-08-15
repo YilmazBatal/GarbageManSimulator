@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PickableItem : MonoBehaviour, IInteractable
 {
+    [SerializeField] public TrashTypes trashData;  // name, desc, rarity, weight, value, isToxic, isRecyclable, icon, prefab
     private PlayerInteraction player;
     private GameObject playerHand;
     private Rigidbody rb;
@@ -14,6 +15,8 @@ public class PickableItem : MonoBehaviour, IInteractable
             playerHand = player.transform.GetChild(0).Find("Hand").gameObject; // Assuming the player's hand is a child of the main camera
         }
         rb = GetComponent<Rigidbody>();
+
+        rb.mass = trashData.weight;
 
     }
     public void Interact()

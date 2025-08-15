@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8484027336008191858}
   - component: {fileID: 7613985042398253197}
   - component: {fileID: 5326666440600759305}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ring Pull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: -192665788361841660}
   - component: {fileID: -1167942087634337495}
   - component: {fileID: 2313709257730213130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soda Can Orange
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a243687c4201f09409575e7c4202b87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trashData: {fileID: 0}
 --- !u!114 &2313709257730213130
 MonoBehaviour:
   m_ObjectHideFlags: 0

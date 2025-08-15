@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 8364520236911588}
   - component: {fileID: -839977292693956775}
   - component: {fileID: -938713044384084224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Apple Core Red
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a243687c4201f09409575e7c4202b87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trashData: {fileID: 11400000, guid: 2e8d5e8879052c54e851fa9d1c269aee, type: 2}
 --- !u!114 &-938713044384084224
 MonoBehaviour:
   m_ObjectHideFlags: 0
