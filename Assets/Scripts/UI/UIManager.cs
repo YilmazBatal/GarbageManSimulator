@@ -8,15 +8,18 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
+    [Header("Panels")]
+    [SerializeField] public GameObject pausePanel;
+
     [Header("Panel check")]
-    GameObject activePanel = null;
+    public GameObject activePanel = null;
     public bool isAnyPanelOpen => activePanel != null;
 
     [Header("Vehicle UI")]
     public Button ReadyBTN;
     public TMP_Text ReadyText;
 
-    public bool isPlayerReady = false; 
+    public bool isPlayerReady = false;
     public int playerCount = 1; // It's hard coded 'till Multiplayer is implemented
 
     GameObject lastSelectedButton = null;
@@ -25,6 +28,7 @@ public class UIManager : MonoBehaviour
     {
         SingletonCheck();
     }
+
     void SingletonCheck()
     {
         if (Instance != null && Instance != this)
@@ -37,6 +41,7 @@ public class UIManager : MonoBehaviour
     }
 
     #region Panel Management
+
     public void OpenPanel(GameObject panel)
     {
         if (panel != null)
@@ -50,13 +55,15 @@ public class UIManager : MonoBehaviour
     }
     public void ClosePanel()
     {
-        if (activePanel != null)
+
+        if (activePanel != null) // there is an active panel
         {
             activePanel.SetActive(false);
             activePanel = null;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
+
     }
     #endregion
 
@@ -76,11 +83,14 @@ public class UIManager : MonoBehaviour
     {
         if (lastSelectedButton != null)
         {
-            
+
             SceneManager.LoadScene(lastSelectedButton.name);
         }
     }
     #endregion
 
+    #region  Pause Selection Menu
     
+    #endregion
+
 }

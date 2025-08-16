@@ -15,6 +15,6 @@ public class PullableObject : MonoBehaviour, IInteractable
     {
         Vector3 pullDir = (transform.position - playerInteraction.transform.position).normalized;
 
-        rb.AddForce(-pullDir * playerInteraction.pushPower, ForceMode.Impulse);
+        rb.AddForce(-pullDir * playerInteraction.pullPower, ForceMode.Impulse);
     }
 }

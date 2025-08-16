@@ -10,6 +10,7 @@ TagManager:
   - Item
   - Trash
   - Pushable
+  - TrashCounter
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - BinCollider
   - Trash
   - TrashBox
-  - 
+  - Ignore
   - 
   - 
   - 

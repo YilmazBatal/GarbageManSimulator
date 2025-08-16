@@ -41,9 +41,6 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveInput;
     public Vector2 lookInput;
     public bool sprintInput;
-
-    [Header("UI")]
-    [SerializeField] TMP_Text speedText;
     #endregion
 
     #region Unity Methods

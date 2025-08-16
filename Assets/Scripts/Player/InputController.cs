@@ -43,7 +43,10 @@ public class InputController : MonoBehaviour
     {
         if (value.isPressed)
         {
-            UIManager.Instance.ClosePanel();
+            if (UIManager.Instance.activePanel == null)
+                UIManager.Instance.OpenPanel(UIManager.Instance.pausePanel);
+            else
+                UIManager.Instance.ClosePanel();
         }
     }
 }

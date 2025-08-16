@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class TrashSlot
@@ -14,8 +15,8 @@ public class TrashSlot
 
 public class TrashBin : MonoBehaviour
 {
-    public int binCapacity = 4; 
-    public int trashInBinInventory = 0; 
+    private int binCapacity = 1; 
+    private int trashInBinInventory = 0; 
     public List<TrashSlot> inventory = new List<TrashSlot>();
     
     [SerializeField] GameObject trashBinLid;
@@ -41,10 +42,16 @@ public class TrashBin : MonoBehaviour
             // in the future get the players nearby 
 
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // in the future get the players nearby 
+
+        }
         // if (trashBinLidAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !trashBinLidAnimator.IsInTransition(0) && trashBinLidAnimator.GetBool("isFull"))
         // {
         //     GameObject.Find("Player").transform.GetChild(0).GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-            
+
         // }
     }
 

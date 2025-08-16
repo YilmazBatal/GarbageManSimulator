@@ -14,6 +14,7 @@ public class PlayerInteraction : MonoBehaviour
 
     [Header("Player Pushable Object Settings")]
     public float pushPower = 5f; 
+    public float pullPower = 20f; 
 
     void Start()
     {
