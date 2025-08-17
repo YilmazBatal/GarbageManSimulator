@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +6,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
+
+    [Header("Canvas")]
+    [SerializeField] Canvas mainCanvas;
+    [SerializeField] public ToastNotificationMessage toastNotificationMessage;
 
     [Header("Panels")]
     [SerializeField] public GameObject pausePanel;
@@ -58,6 +61,15 @@ public class UIManager : MonoBehaviour
 
         if (activePanel != null) // there is an active panel
         {
+            if (activeMinigamePanel != null) // if there is an active minigame panel
+            {
+                Destroy(activeMinigamePanel);
+                activeMinigamePanel = null;
+                activePanel = null;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                return;
+            }
             activePanel.SetActive(false);
             activePanel = null;
             Cursor.visible = false;
@@ -89,8 +101,44 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    #region  Pause Selection Menu
-    
+    #region Minigame Management
+    GameObject activeMinigamePanel = null;
+    public void GenerateMinigamePanel(GameObject minigameUI, GameObject crate)
+    {
+        // access canvas and attack prefab as child 
+        GameObject minigamePanel = Instantiate(minigameUI, mainCanvas.transform);
+        activeMinigamePanel = minigamePanel;
+        activePanel = minigamePanel;
+
+        crate.GetComponent<MinigameInteract>().enabled = false; // Disable interaction with the crate while minigame is active so no 2nd player can use it
+
+    }
     #endregion
+
+    #region  Pause Selection Menu
+
+    #endregion
+    
+    public void ShakeUI(GameObject uiObject, float strength = 20f, float duration = 0.1f, int vibrato = 100)
+    {
+        Vector3 originalPos = uiObject.transform.localPosition;
+        float elapsed = 0f;
+
+        // Coroutine ile rastgele kısa hareketler
+        StartCoroutine(ShakeRoutine());
+
+        System.Collections.IEnumerator ShakeRoutine()
+        {
+            while (elapsed < duration)
+            {
+                if (uiObject == null) yield break;
+                uiObject.transform.localPosition = originalPos + (Vector3)(Random.insideUnitCircle * strength);
+                elapsed += Time.deltaTime;
+                yield return null; // bir frame bekle
+            }
+            uiObject.transform.localPosition = originalPos;
+        }
+    }
+
 
 }

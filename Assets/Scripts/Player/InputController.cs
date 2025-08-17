@@ -22,7 +22,10 @@ public class InputController : MonoBehaviour
     {
         if (value.isPressed)
         {
-            playerController.TryJump();
+            if (!UIManager.Instance.isAnyPanelOpen)
+            {
+                playerController.TryJump();
+            }
         }
     }
     void OnInteract(InputValue value)
