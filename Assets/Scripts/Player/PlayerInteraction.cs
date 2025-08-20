@@ -14,12 +14,20 @@ public class PlayerInteraction : MonoBehaviour
 
     [Header("Player Pushable Object Settings")]
     public float pushPower = 5f; 
-    public float pullPower = 20f; 
+    public float pullPower = 20f;
+
+    int ignoreLayer; 
+    int layerMask;
 
     void Start()
     {
         playerHand = gameObject.transform.GetChild(0).transform.Find("Hand").gameObject; // Assuming the player's hand is a child of the player GameObject
         trashObject = GameObject.Find("Trash"); // Find the trash object in the scene
+        
+
+        // Set up layer masks to ignore certain layers
+        ignoreLayer = LayerMask.GetMask("TrashBox"); 
+        layerMask = ~ignoreLayer;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -33,13 +41,15 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+        
     void Update()
     {
         if (!UIManager.Instance.isAnyPanelOpen)
         { // If any UI panel is open, disable interaction
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+            if (Physics.Raycast(ray, out RaycastHit hit, interactRange, layerMask))
             { // Check if the ray hits an object within the interaction range
+                Debug.DrawRay(ray.origin, ray.direction * interactRange, Color.red);
                 IInteractable target = hit.collider.GetComponent<IInteractable>();
 
                 if (target != null) // if ray was hit by an interactable object
@@ -62,7 +72,7 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
         // If no interactable object is found, disable the last outline and reset current target
-            currentTarget = null;
+        currentTarget = null;
         DisableLastOutline();
     }
 
@@ -83,10 +93,8 @@ public class PlayerInteraction : MonoBehaviour
     public void TryThrow()
     {
         heldItem = playerHand.transform.GetChild(0).gameObject; // Get the item currently held in the player's hand
-        print("Throwing item");
         if (isHolding)
         {
-            print("Throwing item: " + heldItem.name);
             heldItem.GetComponent<Rigidbody>().isKinematic = false;
             heldItem.transform.SetParent(trashObject.transform);
             heldItem.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);

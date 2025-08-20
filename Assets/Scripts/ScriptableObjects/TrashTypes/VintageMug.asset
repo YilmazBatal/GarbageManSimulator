@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashName: Vintage Mug
   trashDescription: Some people would have pay for this.
-  rarity: Uncommon
+  rarity: 2
   weight: 2.5
   value: 1
   isToxic: 0

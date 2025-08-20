@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashName: Banana Peel
   trashDescription: You may slip. Be careful!
-  rarity: Common
+  rarity: 0
   weight: 1
   value: 0.1
   isToxic: 0
   isRecyclable: 0
   trashIcon: {fileID: 21300000, guid: d52872f29f3dd5d44a0701fe84b0feef, type: 3}
-  trashPrefab: {fileID: 8276625273990236846, guid: aa391fa7c7d49314785fa3f647c03048,
+  trashPrefab: {fileID: 8626982150202044708, guid: 95d442aa5c4057243a4bad0d653bfa4b,
     type: 3}

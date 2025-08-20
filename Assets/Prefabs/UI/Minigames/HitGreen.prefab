@@ -785,7 +785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
+  m_Color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0.7607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -832,8 +832,8 @@ MonoBehaviour:
   slider: {fileID: 4379722792742947243}
   sliderHandle: {fileID: 602949024401667472}
   hitText: {fileID: 3273811335276041983}
-  requiredSuccessfulHits: 3
-  hitCooldown: 0.5
+  requiredSuccessfulHits: 1
+  hitCooldown: 1
 --- !u!1 &7368467115594521564
 GameObject:
   m_ObjectHideFlags: 0

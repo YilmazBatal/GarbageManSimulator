@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 8a127c368da4235459c24b6dcdbaf60b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - smashBoxUI: {fileID: 4764778769408238472, guid: 3e4477aeb51c6794fbdf2d78ab672aa7,
+      type: 3}
+  - hitGreenUI: {fileID: 4764778769408238472, guid: 3e4477aeb51c6794fbdf2d78ab672aa7,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

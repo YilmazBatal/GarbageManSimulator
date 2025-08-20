@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PickableItem : MonoBehaviour, IInteractable
@@ -7,8 +8,17 @@ public class PickableItem : MonoBehaviour, IInteractable
     private GameObject playerHand;
     private Rigidbody rb;
     private bool isPickedUp => player.isHolding;
+    private ParticleSystem rarityParticles;
+
     private void Start()
-    {
+    {   
+        // if not a reward delete the particle system
+        // rarityParticles = GetComponentInChildren<ParticleSystem>();
+        // if (rarityParticles != null)
+        // {
+        //     rarityParticles.Stop();
+        // }
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
         if (player != null)
         {
@@ -29,6 +39,14 @@ public class PickableItem : MonoBehaviour, IInteractable
             gameObject.transform.localRotation = Quaternion.identity;
             rb.isKinematic = true;
             player.isHolding = true;
+            // if its a reward and has been picked up stop and destroy particle system
+            // if (rarityParticles != null)
+            // {
+            //     print("Particle object isnt null its just has been stopped in start");
+            //     rarityParticles.Stop();
+            //     // Destroy(rarityParticles.gameObject);
+
+            // }
         }
     }
 }

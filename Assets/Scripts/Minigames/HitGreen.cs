@@ -15,9 +15,10 @@ public class HitGreen : MonoBehaviour
     [Space(10)]
     bool isOnCooldown = false;
     int successfullHits = 0;
-    bool isSucessfull = false;
-
+    
     LTDescr SliderTween;
+
+    bool success => UIManager.Instance.isSucessfull;
     void Start()
     {
         StartTween();
@@ -40,33 +41,35 @@ public class HitGreen : MonoBehaviour
 
     void PlayerHit()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isOnCooldown && !isSucessfull)
+        bool spacePressed = Input.GetKeyDown(KeyCode.Space);
+
+        if (spacePressed && !isOnCooldown && !success)
         {
             if (SliderTween != null)
             {
                 StartCoroutine(WaitCooldown());
             }
-        } else if (Input.GetKeyDown(KeyCode.Space) && isOnCooldown && !isSucessfull)
+        }
+        else if (spacePressed && isOnCooldown && !success)
         {
             ToastNotification.Show("You are on cooldown, wait a bit before hitting again", 2, "alert");
-        } else if (isSucessfull)
+        }
+        else if (success)
         {
-            ToastNotification.Show("You are rewarded now!", 2, "success");
-            UIManager.Instance.ClosePanel();
-            Destroy(gameObject);
+            UIManager.Instance.SuccessfulMinigame(gameObject);
         }
     }
+
     IEnumerator WaitCooldown()
     {
         UIManager.Instance.ShakeUI(gameObject, 30f, 0.10f, 10);
 
         isOnCooldown = true;
-        sliderHandle.color = Color.gray7;
+        sliderHandle.color = Color.gray3;
         CheckSuccess();
         yield return new WaitForSeconds(hitCooldown);
         sliderHandle.color = Color.white;
         isOnCooldown = false;
-
     }
     void CheckSuccess()
     {
@@ -75,10 +78,9 @@ public class HitGreen : MonoBehaviour
             successfullHits++;
             hitText.text = successfullHits + "/" + requiredSuccessfulHits;
 
-            if (successfullHits >= 3)
+            if (successfullHits >= requiredSuccessfulHits)
             {
-                Debug.Log("Player rewarded!");
-                isSucessfull = true;
+                UIManager.Instance.isSucessfull = true;
                 LeanTween.cancel(SliderTween.id);
             }
         }

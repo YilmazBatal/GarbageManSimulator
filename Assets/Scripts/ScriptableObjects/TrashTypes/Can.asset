@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashName: Can
   trashDescription: It may cut your hands.
-  rarity: Common
+  rarity: 1
   weight: 2
   value: 0.25
   isToxic: 0

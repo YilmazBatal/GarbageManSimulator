@@ -18,6 +18,10 @@ public class UIManager : MonoBehaviour
     public GameObject activePanel = null;
     public bool isAnyPanelOpen => activePanel != null;
 
+    [Header("Minigames")]
+    public bool isSucessfull = false;
+    private GameObject currentCrate;
+
     [Header("Vehicle UI")]
     public Button ReadyBTN;
     public TMP_Text ReadyText;
@@ -69,6 +73,7 @@ public class UIManager : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 return;
+                
             }
             activePanel.SetActive(false);
             activePanel = null;
@@ -109,16 +114,32 @@ public class UIManager : MonoBehaviour
         GameObject minigamePanel = Instantiate(minigameUI, mainCanvas.transform);
         activeMinigamePanel = minigamePanel;
         activePanel = minigamePanel;
+        currentCrate = crate;
 
         crate.GetComponent<MinigameInteract>().enabled = false; // Disable interaction with the crate while minigame is active so no 2nd player can use it
-
     }
+
+    public void SuccessfulMinigame(GameObject minigamePanel)
+    {
+        isSucessfull = false;
+        
+        // eriştim
+        currentCrate.GetComponent<MinigameInteract>().GenerateReward();
+
+        ToastNotification.Show("You are rewarded now!", 2, "success");
+        LeanTween.scale(minigamePanel, Vector3.zero, 0.5f)
+            .setEase(LeanTweenType.easeInCubic)
+            .setOnComplete(ClosePanel);
+
+        currentCrate = null; // reset current crate to prevent glitches
+    }
+
     #endregion
 
     #region  Pause Selection Menu
 
     #endregion
-    
+
     public void ShakeUI(GameObject uiObject, float strength = 20f, float duration = 0.1f, int vibrato = 100)
     {
         Vector3 originalPos = uiObject.transform.localPosition;
