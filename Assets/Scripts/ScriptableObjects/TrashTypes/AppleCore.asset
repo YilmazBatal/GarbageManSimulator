@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashName: Apple Core
   trashDescription: Glad you did pick it up. City may would have been an apple farm
-  rarity: Common
+  rarity: 0
+  madeOf: 2
   weight: 1
   value: 0.15
   isToxic: 0

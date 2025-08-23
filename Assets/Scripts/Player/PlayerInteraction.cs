@@ -7,7 +7,8 @@ public class PlayerInteraction : MonoBehaviour
     public bool isHolding = false;
     IInteractable currentTarget;
     GameObject trashObject;
-    GameObject playerHand;
+    [Header("Player Hand")]
+    [SerializeField] public GameObject playerHand;
     GameObject heldItem;
     GameObject lastOutlinedObject;
 
@@ -21,10 +22,8 @@ public class PlayerInteraction : MonoBehaviour
 
     void Start()
     {
-        playerHand = gameObject.transform.GetChild(0).transform.Find("Hand").gameObject; // Assuming the player's hand is a child of the player GameObject
         trashObject = GameObject.Find("Trash"); // Find the trash object in the scene
         
-
         // Set up layer masks to ignore certain layers
         ignoreLayer = LayerMask.GetMask("TrashBox"); 
         layerMask = ~ignoreLayer;
@@ -44,8 +43,18 @@ public class PlayerInteraction : MonoBehaviour
         
     void Update()
     {
-        if (!UIManager.Instance.isAnyPanelOpen)
-        { // If any UI panel is open, disable interaction
+        bool flowControl = SendRay();
+        if (!flowControl)
+        {
+            return;
+        }
+        DisableLastOutline();
+    }
+
+    private bool SendRay()
+    {
+        if (!UIManager.Instance.isAnyPanelOpen) // If any UI panel is open, disable interaction
+        {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, interactRange, layerMask))
             { // Check if the ray hits an object within the interaction range
@@ -67,23 +76,23 @@ public class PlayerInteraction : MonoBehaviour
                     }
 
                     currentTarget = target;
-                    return; // Successfully opened outline, early exit
+                    return false; // Successfully opened outline, early exit
                 }
             }
         }
         // If no interactable object is found, disable the last outline and reset current target
         currentTarget = null;
-        DisableLastOutline();
+        return true;
     }
 
     void DisableLastOutline()
     {
-        if (lastOutlinedObject != null)
+        if (lastOutlinedObject)
         {
             Outline outline = lastOutlinedObject.GetComponent<Outline>();
             if (outline != null) outline.enabled = false;
-            lastOutlinedObject = null;
         }
+            lastOutlinedObject = null;
     }
 
     public void TryInteract()
@@ -92,13 +101,18 @@ public class PlayerInteraction : MonoBehaviour
     }
     public void TryThrow()
     {
-        heldItem = playerHand.transform.GetChild(0).gameObject; // Get the item currently held in the player's hand
         if (isHolding)
         {
-            heldItem.GetComponent<Rigidbody>().isKinematic = false;
-            heldItem.transform.SetParent(trashObject.transform);
-            heldItem.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
-            isHolding = false; // Reset holding state after throwing
+            heldItem = playerHand.transform.GetChild(0).gameObject; // Get the item currently held in the player's hand
+
+            if (isHolding && heldItem != null)
+            {
+                heldItem.GetComponent<Rigidbody>().isKinematic = false;
+                heldItem.transform.SetParent(trashObject.transform);
+                heldItem.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
+                isHolding = false; // Reset holding state after throwing
+                heldItem = null; // Clear the held item reference
+            }
         }
     }
 }

@@ -34,13 +34,17 @@ public class MinigameInteract : MonoBehaviour, IInteractable
     /// </summary>
     void ReleaseReward(GameObject rewardedObject)
     {
-        GameObject rewardObject = Instantiate(rewardedObject, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
+        GameObject rewardObject = Instantiate(rewardedObject, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
+        rewardObject.GetComponent<PickableItem>().isReward = true; // Set the item as a reward
         rewardObject.transform.SetParent(transform.parent); // Set the parent to the same as the minigame interact object
+        rewardObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics for the reward object
 
-
-        // // play particle system cuz its a reward and flying
-        // var particleSystem = rewardObject.GetComponentInChildren<ParticleSystem>();
-        //     particleSystem.Play();
+        LeanTween.moveY(rewardObject, rewardObject.transform.position.y + 2f, 1.5f)
+            .setEase(LeanTweenType.easeOutQuad);
+        LeanTween.rotateAroundLocal(rewardObject, Vector3.up, 360f, 1f)
+            .setRepeat(-1)       // sonsuz tekrar
+            .setEase(LeanTweenType.linear); // sabit hız
+        
     }
 
     public void GenerateReward() {

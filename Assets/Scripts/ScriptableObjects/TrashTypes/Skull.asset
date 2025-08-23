@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7ea912bbf3e3a64d90c24e1502784b8, type: 3}
-  m_Name: BananaPeel
+  m_Name: Skull
   m_EditorClassIdentifier: 
-  trashName: Banana Peel
-  trashDescription: You may slip. Be careful!
-  rarity: 0
+  trashName: Skull of
+  trashDescription: Some people would have pay for this.
+  rarity: 5
   madeOf: 2
-  weight: 1
-  value: 0.1
+  weight: 2
+  value: 100
   isToxic: 0
   isRecyclable: 0
-  trashIcon: {fileID: 21300000, guid: d52872f29f3dd5d44a0701fe84b0feef, type: 3}
-  trashPrefab: {fileID: 8626982150202044708, guid: 95d442aa5c4057243a4bad0d653bfa4b,
+  trashIcon: {fileID: -7907368816393526887, guid: 215687feeab0b7445b4a1cd86c82c2e1,
+    type: 3}
+  trashPrefab: {fileID: 3093585832671737841, guid: b62255c42ea48f04aa1f23b246142d99,
     type: 3}

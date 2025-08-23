@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     public Button ReadyBTN;
     public TMP_Text ReadyText;
 
+    [Header("Player")]
+    [SerializeField] public Image staminaBar;
     public bool isPlayerReady = false;
     public int playerCount = 1; // It's hard coded 'till Multiplayer is implemented
 

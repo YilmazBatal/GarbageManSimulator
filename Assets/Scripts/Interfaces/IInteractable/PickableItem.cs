@@ -1,52 +1,86 @@
-using System;
 using UnityEngine;
 
 public class PickableItem : MonoBehaviour, IInteractable
 {
     [SerializeField] public TrashTypes trashData;  // name, desc, rarity, weight, value, isToxic, isRecyclable, icon, prefab
     private PlayerInteraction player;
-    private GameObject playerHand;
     private Rigidbody rb;
     private bool isPickedUp => player.isHolding;
+    public bool isReward = false;
     private ParticleSystem rarityParticles;
+    AudioSource audioSource;
 
     private void Start()
-    {   
-        // if not a reward delete the particle system
-        // rarityParticles = GetComponentInChildren<ParticleSystem>();
-        // if (rarityParticles != null)
-        // {
-        //     rarityParticles.Stop();
-        // }
-
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
-        if (player != null)
-        {
-            playerHand = player.transform.GetChild(0).Find("Hand").gameObject; // Assuming the player's hand is a child of the main camera
-        }
-        rb = GetComponent<Rigidbody>();
+    {
+        ParticleManagement();
+        GetComponents();
 
         rb.mass = trashData.weight;
-
     }
+
+    private void GetComponents()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
+        rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void Interact()
     {
         if (!isPickedUp)
         {
-            Debug.Log("Item picked up: " + gameObject.name);
-            gameObject.transform.SetParent(playerHand.transform); // Detach from parent if needed
+            gameObject.transform.SetParent(player.playerHand.transform); // Detach from parent if needed
             gameObject.transform.localPosition = Vector3.zero; // Reset position to player's hand
             gameObject.transform.localRotation = Quaternion.identity;
             rb.isKinematic = true;
             player.isHolding = true;
-            // if its a reward and has been picked up stop and destroy particle system
-            // if (rarityParticles != null)
-            // {
-            //     print("Particle object isnt null its just has been stopped in start");
-            //     rarityParticles.Stop();
-            //     // Destroy(rarityParticles.gameObject);
+            if (rarityParticles != null)
+            {
+                rarityParticles.Stop();
+                Destroy(rarityParticles.gameObject);
+            }
+            LeanTween.cancel(gameObject);
 
-            // }
+        }
+    }
+    void ParticleManagement()
+    {
+        rarityParticles = GetComponentInChildren<ParticleSystem>();
+        Debug.Log("Rarity particles found: " + (rarityParticles != null));
+        if (rarityParticles != null)
+        {
+            if (isReward)
+            {
+                print("Particle system playing: " + gameObject.name);
+                rarityParticles.Play();
+            }
+            else // not a reward
+            {
+                rarityParticles.Stop();
+                Destroy(rarityParticles.gameObject);
+                rarityParticles = null;
+                print("Particle system destroyed for non-reward item: " + gameObject.name);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No particle system found in children of " + gameObject.name);
+
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.relativeVelocity.magnitude > 1f) // eşik değer{
+        {
+             // Enum ismini string’e çevir
+            TrashMadeOf key = trashData.madeOf;
+
+            // AudioManager’daki listeden ara
+            SoundItem sound = System.Array.Find(AudioManager.Instance.madeOf, s => s.audioName == key);
+
+            if (sound != null && sound.clip != null)
+                audioSource.PlayOneShot(sound.clip);
         }
     }
 }

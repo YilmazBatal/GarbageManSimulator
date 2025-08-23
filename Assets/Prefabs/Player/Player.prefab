@@ -230,10 +230,15 @@ MonoBehaviour:
   mouseSensivity: 0.75
   clampValue: 85
   jumpHeight: 1.25
-  walkSpeed: 3.5
+  walkSpeed: 4
   sprintSpeed: 6
   smoothTime: 15
   gravityScale: 3
+  energy: 100
+  staminaCooldown: 3
+  regenDelay: 1
+  staminaDrain: 5
+  staminaRegen: 25
   moveInput: {x: 0, y: 0}
   lookInput: {x: 0, y: 0}
   sprintInput: 0
@@ -252,6 +257,7 @@ MonoBehaviour:
   interactRange: 5
   throwForce: 10
   isHolding: 0
+  playerHand: {fileID: 1775594217944418940}
   pushPower: 10
   pullPower: 20
 --- !u!114 &3038759474661927778

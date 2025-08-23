@@ -15,6 +15,7 @@ MonoBehaviour:
   trashName: Vintage Mug
   trashDescription: Some people would have pay for this.
   rarity: 2
+  madeOf: 1
   weight: 2.5
   value: 1
   isToxic: 0

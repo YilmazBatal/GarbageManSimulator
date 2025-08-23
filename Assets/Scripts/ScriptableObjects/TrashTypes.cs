@@ -6,6 +6,7 @@ public class TrashTypes : ScriptableObject
     public string trashName;
     public string trashDescription;
     public Rarity rarity;
+    public TrashMadeOf madeOf;
     public float weight;
     public float value; // Value in game currency
     public bool isToxic;
@@ -22,4 +23,11 @@ public enum Rarity
     Epic,
     Legendary,
     Relic
+}
+
+public enum TrashMadeOf
+{
+    Can,
+    Glass,
+    Plastic
 }

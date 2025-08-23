@@ -15,21 +15,27 @@ MonoBehaviour:
   boxName: Cardboard Box
   rarityChances:
   - rarity: 0
-    chance: 0.5
+    chance: 0.4
     minDrop: 1
     maxDrop: 1
     possibleItems:
     - {fileID: 11400000, guid: 2e8d5e8879052c54e851fa9d1c269aee, type: 2}
     - {fileID: 11400000, guid: 229bf7691a66d2e479b672c2b4fb2658, type: 2}
   - rarity: 1
-    chance: 0.4
+    chance: 0.3
     minDrop: 1
     maxDrop: 1
     possibleItems:
     - {fileID: 11400000, guid: 9921de9992a903d469e27ea02679ce08, type: 2}
   - rarity: 2
-    chance: 0.1
+    chance: 0.2
     minDrop: 1
     maxDrop: 1
     possibleItems:
     - {fileID: 11400000, guid: cf191287b74d4ed4eafd63398ce8b134, type: 2}
+  - rarity: 5
+    chance: 0.1
+    minDrop: 1
+    maxDrop: 1
+    possibleItems:
+    - {fileID: 11400000, guid: 3db3637cca9a5b74cac21476c739e619, type: 2}

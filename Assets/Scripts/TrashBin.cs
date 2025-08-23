@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Cinemachine;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +20,7 @@ public class TrashBin : MonoBehaviour
     [SerializeField] GameObject trashBinLid;
     [SerializeField] Animator trashBinLidAnimator;
     [SerializeField] TMP_Text trashInventoryText;
+    [SerializeField] AudioSource lidClose;
 
 
     private void Start()
