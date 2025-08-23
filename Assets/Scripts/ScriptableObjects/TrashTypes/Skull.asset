@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7ea912bbf3e3a64d90c24e1502784b8, type: 3}
   m_Name: Skull
   m_EditorClassIdentifier: 
-  trashName: Skull of
-  trashDescription: Some people would have pay for this.
+  trashName: Skull
+  trashDescription: ???
   rarity: 5
   madeOf: 2
   weight: 2
@@ -22,5 +22,5 @@ MonoBehaviour:
   isRecyclable: 0
   trashIcon: {fileID: -7907368816393526887, guid: 215687feeab0b7445b4a1cd86c82c2e1,
     type: 3}
-  trashPrefab: {fileID: 3093585832671737841, guid: b62255c42ea48f04aa1f23b246142d99,
+  trashPrefab: {fileID: 3093585832671737841, guid: cf4f9f3dfd37788489082a66082f584b,
     type: 3}

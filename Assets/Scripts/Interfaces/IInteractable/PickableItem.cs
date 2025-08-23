@@ -46,7 +46,6 @@ public class PickableItem : MonoBehaviour, IInteractable
     void ParticleManagement()
     {
         rarityParticles = GetComponentInChildren<ParticleSystem>();
-        Debug.Log("Rarity particles found: " + (rarityParticles != null));
         if (rarityParticles != null)
         {
             if (isReward)
@@ -59,13 +58,7 @@ public class PickableItem : MonoBehaviour, IInteractable
                 rarityParticles.Stop();
                 Destroy(rarityParticles.gameObject);
                 rarityParticles = null;
-                print("Particle system destroyed for non-reward item: " + gameObject.name);
             }
-        }
-        else
-        {
-            Debug.LogWarning("No particle system found in children of " + gameObject.name);
-
         }
     }
 
@@ -73,14 +66,15 @@ public class PickableItem : MonoBehaviour, IInteractable
     {
         if (collision.relativeVelocity.magnitude > 1f) // eşik değer{
         {
-             // Enum ismini string’e çevir
+            // Enum ismini string’e çevir
             TrashMadeOf key = trashData.madeOf;
+
 
             // AudioManager’daki listeden ara
             SoundItem sound = System.Array.Find(AudioManager.Instance.madeOf, s => s.audioName == key);
 
             if (sound != null && sound.clip != null)
-                audioSource.PlayOneShot(sound.clip);
+                audioSource.PlayOneShot(sound.clip[Random.Range(0, sound.clip.Length)]);
         }
     }
 }

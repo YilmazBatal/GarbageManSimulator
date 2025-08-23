@@ -5,6 +5,7 @@ public class MinigameInteract : MonoBehaviour, IInteractable
 {
     [SerializeField] MinigameType minigameType; // Type of the minigame to be played // choosed in inspector
     [SerializeField] BoxDatas boxData; // script that holds UI Prefabs for minigames
+    [SerializeField] AudioSource audioSource; // script that holds UI Prefabs for minigames
 
     GameObject minigameUI;
 
@@ -16,8 +17,11 @@ public class MinigameInteract : MonoBehaviour, IInteractable
                 minigameUI = Minigames.Instance.smashBoxUI;
                 break;
             case MinigameType.HitGreen:
-                minigameUI = Minigames.Instance.hitGreenUI;
+                minigameUI = Minigames.Instance.greenZone;
                 break;
+            // case MinigameType.HitGreen:
+            //     minigameUI = Minigames.Instance.hitGreenUI;
+            //     break;
         }
     }
 
@@ -27,6 +31,7 @@ public class MinigameInteract : MonoBehaviour, IInteractable
     public void Interact()
     {
         UIManager.Instance.GenerateMinigamePanel(minigameUI, gameObject);
+        audioSource.PlayOneShot(AudioManager.Instance.interactSfx);
     }
 
     /// <summary>
@@ -65,13 +70,13 @@ public class MinigameInteract : MonoBehaviour, IInteractable
             if (chanceValue < cumulativeProbability)
             {
                 // SEÇİLEN NADİRLİK BUDUR!
-                Debug.Log($"<color=green>Ödül bulundu! Nadirlik: {rarityInfo.rarity.ToString()}</color>");
+                // Debug.Log($"<color=green>Ödül bulundu! Nadirlik: {rarityInfo.rarity.ToString()}</color>");
 
                 // --- Buradan sonra seçilen nadirliğe göre eşya verme işlemleri yapılır ---
 
                 // Kaç adet eşya düşeceğini belirle (min ve max arasından)
                 int dropCount = Random.Range(rarityInfo.minDrop, rarityInfo.maxDrop + 1);
-                Debug.Log($"{dropCount} adet eşya verilecek.");
+                // Debug.Log($"{dropCount} adet eşya verilecek.");
 
                 // Belirlenen adette rastgele eşya seç ve ver
                 for (int i = 0; i < dropCount; i++)
@@ -82,7 +87,7 @@ public class MinigameInteract : MonoBehaviour, IInteractable
                         int randomIndex = Random.Range(0, rarityInfo.possibleItems.Count);
                         TrashTypes selectedItem = rarityInfo.possibleItems[randomIndex];
 
-                        Debug.Log($"Verilen Eşya: {selectedItem.ToString()}");
+                        // Debug.Log($"Verilen Eşya: {selectedItem.ToString()}");
 
                         ReleaseReward(selectedItem.trashPrefab);
                     }

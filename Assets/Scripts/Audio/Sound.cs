@@ -10,5 +10,5 @@ public class Sound
 public class SoundItem
 {
     public TrashMadeOf audioName;
-    public AudioClip clip;
+    public AudioClip[] clip;
 }

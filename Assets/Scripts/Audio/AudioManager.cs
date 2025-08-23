@@ -12,7 +12,21 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioSource SFXSource;
     [SerializeField] public AudioSource UISFXSource;
 
+    [Header("Item Sounds")]
     [SerializeField] public SoundItem[] madeOf;
+    [Header("Player Sounds")]
+    [SerializeField] public AudioClip[] footstepClips;
+    [SerializeField] public AudioClip jump;
+    [SerializeField] public AudioClip land;
+    [Header("Bin Sounds")]
+    [SerializeField] public AudioClip lidClose;
+    [SerializeField] public AudioClip lidOpen;
+    [SerializeField] public AudioClip binRoll;
+    [Header("Minigame Interact & sounds")]
+    [SerializeField] public AudioClip interactSfx;
+    [SerializeField] public AudioClip hitGreen;
+    [SerializeField] public AudioClip hitRed;
+
 
 
     void Awake()

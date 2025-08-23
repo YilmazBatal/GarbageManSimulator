@@ -6,6 +6,7 @@ public class Minigames : MonoBehaviour
     #region Minigame UIs
     [SerializeField] public GameObject smashBoxUI;
     [SerializeField] public GameObject hitGreenUI;
+    [SerializeField] public GameObject greenZone;
     #endregion
 
     private void Awake() {
