@@ -14,6 +14,17 @@ public class UIManager : MonoBehaviour
     [Header("Panels")]
     [SerializeField] public GameObject pausePanel;
 
+    [Header("HUD")]
+    [SerializeField] public Image experienceFill;
+    [SerializeField] public TMP_Text experienceText;
+    [SerializeField] public TMP_Text lvCurrent;
+    [SerializeField] public TMP_Text lvNext;
+    [Space(15)]
+    [SerializeField] public TMP_Text money;
+    [SerializeField] public TMP_Text day;
+    [Space(15)]
+    [SerializeField] public Image[] skillIcons;
+
     [Header("Panel check")]
     public GameObject activePanel = null;
     public bool isAnyPanelOpen => activePanel != null;

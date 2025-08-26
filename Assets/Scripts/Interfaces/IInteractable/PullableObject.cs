@@ -8,7 +8,8 @@ public class PullableObject : MonoBehaviour, IInteractable
     [SerializeField] float maxSpeed = 5f;   // hızı normalize etmek için
     [SerializeField] float minPitch = 0.8f;
     [SerializeField] float maxPitch = 1.2f;
-    
+    [SerializeField] public TrashBin trashBin;
+
     void Start()
     {
         playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
@@ -20,9 +21,9 @@ public class PullableObject : MonoBehaviour, IInteractable
         // Rigidbody hızı
         float speed = rb.linearVelocity.magnitude;
 
-        if(speed > 0.1f) // hareket ediyorsa
+        if (speed > 0.1f) // hareket ediyorsa
         {
-            if(!audioSource.isPlaying)
+            if (!audioSource.isPlaying)
                 audioSource.Play();
 
             // pitch hıza göre
@@ -32,8 +33,12 @@ public class PullableObject : MonoBehaviour, IInteractable
         }
         else
         {
-            if(audioSource.isPlaying)
+            if (audioSource.isPlaying)
                 audioSource.Stop();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            
         }
     }
 
@@ -42,6 +47,10 @@ public class PullableObject : MonoBehaviour, IInteractable
         Vector3 pullDir = (transform.position - playerInteraction.transform.position).normalized;
 
         rb.AddForce(-pullDir * playerInteraction.pullPower, ForceMode.Impulse);
+    }
+    public void DepositTrash()
+    {
+        
     }
     
 }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -13,10 +15,11 @@ public class TrashSlot
 
 public class TrashBin : MonoBehaviour
 {
-    private int binCapacity = 1; 
+    [SerializeField] private int binCapacity = 1; 
     private int trashInBinInventory = 0; 
     public List<TrashSlot> inventory = new List<TrashSlot>();
-    
+    [NonSerialized] public bool isNearVehicle;
+    [NonSerialized] public bool isGettingLooked;
     [SerializeField] GameObject trashBinLid;
     [SerializeField] Animator trashBinLidAnimator;
     [SerializeField] TMP_Text trashInventoryText;
@@ -45,13 +48,15 @@ public class TrashBin : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             // in the future get the players nearby 
-
         }
-        // if (trashBinLidAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !trashBinLidAnimator.IsInTransition(0) && trashBinLidAnimator.GetBool("isFull"))
-        // {
-        //     GameObject.Find("Player").transform.GetChild(0).GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+        if (isNearVehicle && isGettingLooked)
+        {
 
-        // }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                print("Trash box Inventory deposited to vehicle");
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)

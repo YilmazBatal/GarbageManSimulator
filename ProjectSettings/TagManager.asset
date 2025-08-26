@@ -11,6 +11,7 @@ TagManager:
   - Trash
   - Pushable
   - TrashCounter
+  - VehicleTrashCollector
   layers:
   - Default
   - TransparentFX

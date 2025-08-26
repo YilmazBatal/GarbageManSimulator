@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GreenZone : MonoBehaviour
 {
-    //     [Header("UI Objects")]
+    // [Header("UI Objects")]
     // [SerializeField] Slider slider;
     // [SerializeField] Image sliderHandle;
     // [SerializeField] TMP_Text hitText;

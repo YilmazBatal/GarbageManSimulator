@@ -1,15 +1,17 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HitGreen : MonoBehaviour
 {
     [Header("UI Objects")]
     [SerializeField] RectTransform RedZone;
     [SerializeField] GameObject GreenZone;
+    [SerializeField] RectTransform BarArrow;
     [SerializeField] int greenCount = 2;
     [SerializeField] TMP_Text SuccessfullHitsText;
+
 
 
     [Space(10)]
@@ -17,8 +19,11 @@ public class HitGreen : MonoBehaviour
     int successfullHits = 0;
     [SerializeField] float hitCooldown = 1f;
     bool isOnCooldown = false;
-    
-    LTDescr SliderTween;
+    float barArrowPos;
+    bool isDamaged;
+    List<(float min, float max)> greenZones = new List<(float, float)>();
+
+    LTDescr handleTween;
 
     bool success => UIManager.Instance.isSucessfull;
 
@@ -32,81 +37,93 @@ public class HitGreen : MonoBehaviour
 
     private void GenerateZones()
     {
-         float barWidth = RedZone.rect.width;
+        float barWidth = RedZone.rect.width;
 
         for (int i = 0; i < greenCount; i++)
         {
-            // Rastgele genişlik ve pozisyon
-            float width = UnityEngine.Random.Range(30f, 80f);
-            float posX = UnityEngine.Random.Range(-barWidth / 2f + width / 2f, barWidth / 2f - width / 2f);
+            float width = Random.Range(30f, 80f);
+            float posX = Random.Range(-barWidth / 2f + width / 2f, barWidth / 2f - width / 2f);
 
             GameObject zone = Instantiate(GreenZone, RedZone);
             RectTransform rt = zone.GetComponent<RectTransform>();
 
             rt.sizeDelta = new Vector2(width, rt.sizeDelta.y);
             rt.anchoredPosition = new Vector2(posX, 0f);
+            greenZones.Add((rt.anchoredPosition.x - (width / 2), rt.anchoredPosition.x + width / 2));
         }
     }
 
     void StartTween()
     {
-        // SliderTween = LeanTween.value(gameObject, 0f, 1f, 0.66f)
-        //     .setOnUpdate((float value) =>
-        //     {
-        //         slider.value = value;
-        //     }).setEaseInOutQuad().setLoopPingPong();
+        handleTween = LeanTween.moveX(BarArrow, 330, 0.5f)
+            .setEase(LeanTweenType.easeInOutQuad)
+            .setLoopPingPong()
+            .setFrom(-330f);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // PlayerHit();
+        PlayerHit();
     }
 
-    // void PlayerHit()
-    // {
-    //     bool spacePressed = Input.GetKeyDown(KeyCode.Space);
+    void PlayerHit()
+    {
+        bool spacePressed = Input.GetKeyDown(KeyCode.Space);
 
-    //     if (spacePressed && !isOnCooldown && !success)
-    //     {
-    //         if (SliderTween != null)
-    //         {
-    //             StartCoroutine(WaitCooldown());
-    //         }
-    //     }
-    //     else if (spacePressed && isOnCooldown && !success)
-    //     {
-    //         ToastNotification.Show("You are on cooldown, wait a bit before hitting again", 2, "alert");
-    //     }
-    //     else if (success)
-    //     {
-    //         UIManager.Instance.SuccessfulMinigame(gameObject);
-    //     }
-    // }
+        if (spacePressed && !isOnCooldown && !success)
+        {
+            if (handleTween != null)
+            {
+                StartCoroutine(WaitCooldown());
+            }
+        }
+        else if (spacePressed && isOnCooldown && !success)
+        {
+            ToastNotification.Show("You are on cooldown, wait a bit before hitting again", 2, "alert");
+        }
+        else if (success)
+        {
+            UIManager.Instance.SuccessfulMinigame(gameObject);
+        }
+    }
 
-    // IEnumerator WaitCooldown()
-    // {
-    //     UIManager.Instance.ShakeUI(gameObject, 30f, 0.10f, 10);
+    IEnumerator WaitCooldown()
+    {
+        UIManager.Instance.ShakeUI(gameObject, 30f, 0.10f, 10);
 
-    //     isOnCooldown = true;
-    //     sliderHandle.color = Color.gray3;
-    //     CheckSuccess();
-    //     yield return new WaitForSeconds(hitCooldown);
-    //     sliderHandle.color = Color.white;
-    //     isOnCooldown = false;
-    // }
-    // void CheckSuccess()
-    // {
-    //    if (slider.value <= 0.065f || slider.value >= 0.935f || (slider.value >= 0.41f && slider.value <= 0.59f))
-    //     {
-    //         successfullHits++;
-    //         hitText.text = successfullHits + "/" + requiredSuccessfulHits;
+        isOnCooldown = true;
+        handleTween.pause();
+        BarArrow.gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.gray6;
+        barArrowPos = BarArrow.anchoredPosition.x;
+        CheckSuccess();
+        yield return new WaitForSeconds(hitCooldown);
+        BarArrow.gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+        handleTween.resume();
+        isOnCooldown = false;
+    }
 
-    //         if (successfullHits >= requiredSuccessfulHits)
-    //         {
-    //             UIManager.Instance.isSucessfull = true;
-    //             LeanTween.cancel(SliderTween.id);
-    //         }
-    //     }
-    // }
+    void CheckSuccess()
+    {
+        for (int i = 0; i < greenZones.Count; i++)
+        {
+            if (barArrowPos >= greenZones[i].min && barArrowPos <= greenZones[i].max)
+            {
+                successfullHits++;
+                SuccessfullHitsText.text = successfullHits + "/" + requiredSuccessfulHits;
+                if (successfullHits >= requiredSuccessfulHits)
+                {
+                    UIManager.Instance.isSucessfull = true;
+                    LeanTween.cancel(handleTween.id);
+                    UIManager.Instance.SuccessfulMinigame(gameObject);
+                    break;
+                }
+                break;
+            }
+            else
+            {
+                isDamaged = true;
+            }
+        }
+
+    }
 }

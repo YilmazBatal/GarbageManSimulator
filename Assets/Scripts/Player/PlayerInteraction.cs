@@ -11,6 +11,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] public GameObject playerHand;
     GameObject heldItem;
     GameObject lastOutlinedObject;
+    TrashBin lastBin;
 
 
     [Header("Player Pushable Object Settings")]
@@ -60,6 +61,20 @@ public class PlayerInteraction : MonoBehaviour
             { // Check if the ray hits an object within the interaction range
                 Debug.DrawRay(ray.origin, ray.direction * interactRange, Color.red);
                 IInteractable target = hit.collider.GetComponent<IInteractable>();
+                PullableObject bin = hit.collider.GetComponent<PullableObject>();
+                if (bin != null)
+                {
+                    lastBin = bin.trashBin;
+                    bin.trashBin.isGettingLooked = true;
+                }
+                else
+                {
+                    if (lastBin != null)
+                    {
+                    lastBin.isGettingLooked = false;
+                        
+                    }
+                }
 
                 if (target != null) // if ray was hit by an interactable object
                 {
@@ -78,6 +93,7 @@ public class PlayerInteraction : MonoBehaviour
                     currentTarget = target;
                     return false; // Successfully opened outline, early exit
                 }
+
             }
         }
         // If no interactable object is found, disable the last outline and reset current target
