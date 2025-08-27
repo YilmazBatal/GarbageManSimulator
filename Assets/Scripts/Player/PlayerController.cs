@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour
         // Landing check
         if (!justLanded && isGrounded)
         {
-            Debug.Log("Landed");
             audioSource.PlayOneShot(AudioManager.Instance.land);
         }
 
@@ -187,7 +186,6 @@ public class PlayerController : MonoBehaviour
         if (isGrounded == false) return;
 
         verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y * gravityScale);
-        Debug.Log("Jumped");
         audioSource.PlayOneShot(AudioManager.Instance.jump);
         justLanded = true;
     }

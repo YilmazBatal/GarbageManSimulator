@@ -1,60 +1,75 @@
 using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using TMPro;
-using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class TrashSlot
 {
-    public TrashTypes trashType; // SO referansı
-    public int amount;          // kaç adet
+    public TrashTypes trashType; 
+    public int amount;          
 }
 
 public class TrashBin : MonoBehaviour
 {
-    [SerializeField] private int binCapacity = 1; 
-    private int trashInBinInventory = 0; 
+    [SerializeField] private int binCapacity = 5; // kapasite
     public List<TrashSlot> inventory = new List<TrashSlot>();
+
     [NonSerialized] public bool isNearVehicle;
     [NonSerialized] public bool isGettingLooked;
-    [SerializeField] GameObject trashBinLid;
+
     [SerializeField] Animator trashBinLidAnimator;
     [SerializeField] TMP_Text trashInventoryText;
-    [SerializeField] AudioSource lidClose;
+    [SerializeField] AudioSource audioSource;
 
+    public TrashCollector trashCollector;
 
     private void Start()
     {
         UpdateTrashInventoryText();
+        GetTrashCollector();
+    }
+
+    private void GetTrashCollector()
+    {
+        trashCollector = GameObject.FindGameObjectWithTag("VehicleTrashCollector").GetComponent<TrashCollector>();
     }
 
     private void UpdateTrashInventoryText()
     {
-        trashInventoryText.text = trashInBinInventory + " / " + binCapacity;
+        trashInventoryText.text = CurrentTrashCount + " / " + binCapacity;
+    }
+
+    // 🔑 Toplamı inventory'den hesaplıyoruz
+    public int CurrentTrashCount {
+        get {
+            int total = 0;
+            foreach (var slot in inventory)
+                total += slot.amount;
+            return total;
+        }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            GameObject.Find("Player").transform.GetChild(0).GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-            // in the future get the players nearby 
+        TransferBin();
+    }
 
-        }
-        if (Input.GetKeyDown(KeyCode.R))
+    private void TransferBin()
+    {
+        if (isNearVehicle && isGettingLooked && Input.GetKeyDown(KeyCode.F))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            // in the future get the players nearby 
-        }
-        if (isNearVehicle && isGettingLooked)
-        {
-
-            if (Input.GetKeyDown(KeyCode.F))
+            Debug.Log("Trash box Inventory deposited to vehicle");
+            // code here
+            TrashCollector vehicle = FindAnyObjectByType<TrashCollector>(); // ya da OnTriggerEnter ile cachele
+            if (vehicle != null)
             {
-                print("Trash box Inventory deposited to vehicle");
+                vehicle.AddFromBin(inventory); // çöpleri araca aktar
+                inventory.Clear();             // kutuyu boşalt
+                trashBinLidAnimator.SetBool("isFull", false);
+                UpdateTrashInventoryText();    // UI sıfırla
+                audioSource.PlayOneShot(AudioManager.Instance.trashPile);
+
             }
         }
     }
@@ -63,16 +78,13 @@ public class TrashBin : MonoBehaviour
     {
         if (other.CompareTag("Trash"))
         {
-            if (trashInBinInventory != binCapacity) // inventory is not full
+            if (CurrentTrashCount < binCapacity) 
             {
-                //Add the trash item to the bin inventory
                 AddTrash(other.GetComponent<PickableItem>().trashData);
-                trashInBinInventory++;
                 UpdateTrashInventoryText();
-                if (trashInBinInventory == binCapacity) // if bin is now full then close with lean tween 
-                {
+
+                if (CurrentTrashCount == binCapacity)
                     trashBinLidAnimator.SetBool("isFull", true);
-                }
             }
 
             Destroy(other.gameObject);
@@ -83,12 +95,8 @@ public class TrashBin : MonoBehaviour
     {
         TrashSlot slot = inventory.Find(s => s.trashType == type);
         if (slot != null)
-        {
             slot.amount++;
-        }
         else
-        {
             inventory.Add(new TrashSlot { trashType = type, amount = 1 });
-        }
     }
 }

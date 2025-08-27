@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip lidClose;
     [SerializeField] public AudioClip lidOpen;
     [SerializeField] public AudioClip binRoll;
+    [SerializeField] public AudioClip trashPile;
     [Header("Minigame Interact & sounds")]
     [SerializeField] public AudioClip interactSfx;
     [SerializeField] public AudioClip hitGreen;

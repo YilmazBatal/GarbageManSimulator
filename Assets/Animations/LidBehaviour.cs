@@ -14,6 +14,6 @@ public class LidBehaviour : StateMachineBehaviour
     {
         audioSource = GameObject.Find("TrashTrigger").GetComponent<AudioSource>();
         GameObject.Find("Player").transform.GetChild(0).GetComponent<Unity.Cinemachine.CinemachineImpulseSource>().GenerateImpulse();
-        audioSource.PlayOneShot(audioSource.clip);
+        audioSource.PlayOneShot(AudioManager.Instance.lidClose);
     } 
 }

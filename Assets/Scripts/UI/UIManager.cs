@@ -48,7 +48,6 @@ public class UIManager : MonoBehaviour
     {
         SingletonCheck();
     }
-
     void SingletonCheck()
     {
         if (Instance != null && Instance != this)
@@ -120,6 +119,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Minigame Management
+
     GameObject activeMinigamePanel = null;
     public void GenerateMinigamePanel(GameObject minigameUI, GameObject crate)
     {
@@ -146,10 +146,6 @@ public class UIManager : MonoBehaviour
 
         currentCrate = null; // reset current crate to prevent glitches
     }
-
-    #endregion
-
-    #region  Pause Selection Menu
 
     #endregion
 

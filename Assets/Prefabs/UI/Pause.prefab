@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.2481, y: 217}
+  m_AnchoredPosition: {x: -17.248108, y: 217}
   m_SizeDelta: {x: 464.05, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7982972470738709016
@@ -184,7 +184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.2481, y: -38}
+  m_AnchoredPosition: {x: -17.248108, y: -38}
   m_SizeDelta: {x: 464.05, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1736999472037512321
@@ -319,7 +319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.2481, y: 47}
+  m_AnchoredPosition: {x: -17.248108, y: 47}
   m_SizeDelta: {x: 464.05, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8162870983362075511
@@ -1121,7 +1121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1125591209433981418
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1221,7 +1221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.2481, y: 132}
+  m_AnchoredPosition: {x: -17.248108, y: 132}
   m_SizeDelta: {x: 464.05, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3781184048060563275
@@ -1305,7 +1305,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7960866983680103757}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OpenPanel
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &676070905106057438
 MonoBehaviour:
   m_ObjectHideFlags: 0

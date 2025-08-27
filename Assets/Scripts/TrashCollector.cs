@@ -1,11 +1,30 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+
 
 public class TrashCollector : MonoBehaviour
 {
-    void Update()
+    [SerializeField] private TMP_Text infoText;
+    [SerializeField] public int vehicleCapacity = 20;
+    int currentTrashCount;
+    [SerializeField] public List<TrashSlot> vehicleInventory = new List<TrashSlot>();
+
+    public void AddFromBin(List<TrashSlot> binInventory)
     {
-        
+        foreach (TrashSlot slot in binInventory)
+        {
+            TrashSlot existing = vehicleInventory.Find(s => s.trashType == slot.trashType);
+            if (existing != null)
+                existing.amount += slot.amount; // aynı tür → miktarı ekle
+            else
+                vehicleInventory.Add(new TrashSlot { trashType = slot.trashType, amount = slot.amount });
+            currentTrashCount += slot.amount;
+        }
+
+        infoText.text = currentTrashCount.ToString() + "/" + vehicleCapacity;
     }
+
     void OnTriggerEnter(Collider other)
     {
         // Çarpılan objede TrashBin scripti var mı diye kontrol et
@@ -13,11 +32,6 @@ public class TrashCollector : MonoBehaviour
         {
             bin.isNearVehicle = true;
             Debug.Log("Çöp kutusu bulundu!");
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                Debug.Log("Çöp kutusu bulundu! Çeşit: " + bin.inventory.Count);
-            }
         }
     }
 
