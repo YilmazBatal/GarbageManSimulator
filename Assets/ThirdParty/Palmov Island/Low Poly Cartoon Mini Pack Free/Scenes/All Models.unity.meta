@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 296a0af9c00614843b3c6d8a62cc14b8
+guid: a38fc3a945cda43488e9a5295fa72684
 DefaultImporter:
   externalObjects: {}
   userData: 
@@ -7,8 +7,9 @@ DefaultImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 227405
-  packageName: Low Poly Cartoon Mini Pack Free
+  productId: 278928
+  packageName: Low Poly Atmospheric Locations Pack
   packageVersion: 1.0.0
-  assetPath: Assets/Palmov Island/Low Poly Cartoon Mini Pack Free/Scenes/All Models.unity
-  uploadId: 512587
+  assetPath: Assets/ThirdParty/Palmov Island/Low Poly Cartoon Mini Pack Free/Scenes/All
+    models.unity
+  uploadId: 663950

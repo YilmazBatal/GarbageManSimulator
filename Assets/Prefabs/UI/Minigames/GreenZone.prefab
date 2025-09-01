@@ -650,7 +650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RedZone: {fileID: 8399424373057538772}
-  GreenZone: {fileID: 4497139494958175120, guid: f6b25425bdde8264598769f55923c8f5,
+  GreenZoneUI: {fileID: 4497139494958175120, guid: f6b25425bdde8264598769f55923c8f5,
     type: 3}
   BarArrow: {fileID: 2344143203879361317}
   greenCount: 2

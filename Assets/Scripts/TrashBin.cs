@@ -6,8 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class TrashSlot
 {
-    public TrashTypes trashType; 
-    public int amount;          
+    public TrashTypes trashType;
+    public int amount;
 }
 
 public class TrashBin : MonoBehaviour
@@ -41,8 +41,10 @@ public class TrashBin : MonoBehaviour
     }
 
     // 🔑 Toplamı inventory'den hesaplıyoruz
-    public int CurrentTrashCount {
-        get {
+    public int CurrentTrashCount
+    {
+        get
+        {
             int total = 0;
             foreach (var slot in inventory)
                 total += slot.amount;
@@ -57,28 +59,36 @@ public class TrashBin : MonoBehaviour
 
     private void TransferBin()
     {
-        if (isNearVehicle && isGettingLooked && Input.GetKeyDown(KeyCode.F))
+        if (isNearVehicle && isGettingLooked && Input.GetKeyDown(KeyCode.F) && trashCollector != null)
         {
-            Debug.Log("Trash box Inventory deposited to vehicle");
-            // code here
-            TrashCollector vehicle = FindAnyObjectByType<TrashCollector>(); // ya da OnTriggerEnter ile cachele
-            if (vehicle != null)
+            if (trashCollector.vehicleTrashCount < trashCollector.vehicleCapacity)
             {
-                vehicle.AddFromBin(inventory); // çöpleri araca aktar
-                inventory.Clear();             // kutuyu boşalt
-                trashBinLidAnimator.SetBool("isFull", false);
-                UpdateTrashInventoryText();    // UI sıfırla
-                audioSource.PlayOneShot(AudioManager.Instance.trashPile);
+                // Araca aktar, ama bin’de kalan çöpleri sakla
+                trashCollector.AddFromBin(inventory);
 
+                // Bin’de 0 olan slotları temizle, kalanlar kalır
+                inventory.RemoveAll(slot => slot.amount <= 0);
+
+
+                // Eğer hâlâ çöp varsa full animasyonunu kaldır
+                bool isEmpty = inventory.Count == 0;
+                trashBinLidAnimator.SetBool("isFull", !isEmpty);
+
+                UpdateTrashInventoryText();
+                audioSource.PlayOneShot(AudioManager.Instance.trashPile);
+            } else
+            {
+                ToastNotification.Show("Vehicle is full. Time to return!", 2f, "alert");
             }
         }
     }
+
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Trash"))
         {
-            if (CurrentTrashCount < binCapacity) 
+            if (CurrentTrashCount < binCapacity)
             {
                 AddTrash(other.GetComponent<PickableItem>().trashData);
                 UpdateTrashInventoryText();

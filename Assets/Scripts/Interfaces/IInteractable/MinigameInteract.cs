@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum MinigameType {Smash, HitGreen}
+public enum MinigameType { Smash, GreenZone }
 public class MinigameInteract : MonoBehaviour, IInteractable
 {
     [SerializeField] MinigameType minigameType; // Type of the minigame to be played // choosed in inspector
@@ -16,7 +16,7 @@ public class MinigameInteract : MonoBehaviour, IInteractable
             case MinigameType.Smash:
                 minigameUI = Minigames.Instance.smashBoxUI;
                 break;
-            case MinigameType.HitGreen:
+            case MinigameType.GreenZone:
                 minigameUI = Minigames.Instance.greenZone;
                 break;
             // case MinigameType.HitGreen:

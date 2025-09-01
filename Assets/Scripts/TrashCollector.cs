@@ -6,24 +6,45 @@ using UnityEngine;
 public class TrashCollector : MonoBehaviour
 {
     [SerializeField] private TMP_Text infoText;
+    /// <summary>
+    /// Maximum vehicle trash capacity
+    /// </summary>
     [SerializeField] public int vehicleCapacity = 20;
-    int currentTrashCount;
+    public int vehicleTrashCount;
     [SerializeField] public List<TrashSlot> vehicleInventory = new List<TrashSlot>();
 
-    public void AddFromBin(List<TrashSlot> binInventory)
+    void Start()
     {
-        foreach (TrashSlot slot in binInventory)
-        {
-            TrashSlot existing = vehicleInventory.Find(s => s.trashType == slot.trashType);
-            if (existing != null)
-                existing.amount += slot.amount; // aynı tür → miktarı ekle
-            else
-                vehicleInventory.Add(new TrashSlot { trashType = slot.trashType, amount = slot.amount });
-            currentTrashCount += slot.amount;
-        }
-
-        infoText.text = currentTrashCount.ToString() + "/" + vehicleCapacity;
+        UpdateInfoText();
     }
+
+    public void AddFromBin(List<TrashSlot> binInventory)
+{
+    foreach (TrashSlot slot in binInventory)
+    {
+        int spaceLeft = vehicleCapacity - vehicleTrashCount;
+        if (spaceLeft <= 0)
+            break; // araç dolu
+
+        // Kaç tane aktarılabilir?
+        int transferable = Mathf.Min(spaceLeft, slot.amount);
+
+        // Var olan aynı türden varsa ekle
+        TrashSlot existing = vehicleInventory.Find(s => s.trashType == slot.trashType);
+        if (existing != null)
+            existing.amount += transferable;
+        else
+            vehicleInventory.Add(new TrashSlot { trashType = slot.trashType, amount = transferable });
+
+        // Araçtaki mevcut çöp sayısını arttır
+        vehicleTrashCount += transferable;
+
+        // Bin'den eksilt
+        slot.amount -= transferable;
+    }
+
+    infoText.text = vehicleTrashCount + " / " + vehicleCapacity;
+}
 
     void OnTriggerEnter(Collider other)
     {
@@ -31,7 +52,6 @@ public class TrashCollector : MonoBehaviour
         if (other.TryGetComponent<TrashBin>(out TrashBin bin))
         {
             bin.isNearVehicle = true;
-            Debug.Log("Çöp kutusu bulundu!");
         }
     }
 
@@ -40,7 +60,10 @@ public class TrashCollector : MonoBehaviour
         if (other.TryGetComponent<TrashBin>(out TrashBin bin))
         {
             bin.isNearVehicle = false;
-            Debug.Log("Çöp kutusundan uzaklaşıldı.");
         }
+    }
+    private void UpdateInfoText()
+    {
+        infoText.text = vehicleTrashCount.ToString() + "/" + vehicleCapacity;
     }
 }
