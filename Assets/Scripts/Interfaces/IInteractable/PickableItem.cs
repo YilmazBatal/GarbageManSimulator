@@ -1,5 +1,8 @@
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Outline))]
+[RequireComponent(typeof(Collider))]
 public class PickableItem : MonoBehaviour, IInteractable
 {
     [SerializeField] public TrashTypes trashData;  // name, desc, rarity, weight, value, isToxic, isRecyclable, icon, prefab

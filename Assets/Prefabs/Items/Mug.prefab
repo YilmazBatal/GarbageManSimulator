@@ -285,21 +285,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7435569637417646967, guid: f79134f7e1dfb3a4f9c70056d7843dc6,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 7435569637417646967, guid: f79134f7e1dfb3a4f9c70056d7843dc6,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 7435569637417646967, guid: f79134f7e1dfb3a4f9c70056d7843dc6,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 7435569637417646967, guid: f79134f7e1dfb3a4f9c70056d7843dc6,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -347,16 +332,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8340865461241465740, guid: f79134f7e1dfb3a4f9c70056d7843dc6,
-        type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8340865461241465740, guid: f79134f7e1dfb3a4f9c70056d7843dc6,
-        type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

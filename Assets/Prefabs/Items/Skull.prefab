@@ -261,16 +261,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Relic
       objectReference: {fileID: 0}
-    - target: {fileID: 3751096465879373906, guid: d54c0388c7fecce4aa07c14e0359e68e,
-        type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3751096465879373906, guid: d54c0388c7fecce4aa07c14e0359e68e,
-        type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.07
-      objectReference: {fileID: 0}
     - target: {fileID: 6012796366628073624, guid: d54c0388c7fecce4aa07c14e0359e68e,
         type: 3}
       propertyPath: m_LocalPosition.x
