@@ -127,6 +127,7 @@ MonoBehaviour:
   minigameType: 1
   boxData: {fileID: 11400000, guid: d487f07f7056bfb4b9d309b2cba12a83, type: 2}
   audioSource: {fileID: 8909773091806193177}
+  boxCollider: {fileID: 1470807145387683938}
 --- !u!114 &5339542038175074160
 MonoBehaviour:
   m_ObjectHideFlags: 0

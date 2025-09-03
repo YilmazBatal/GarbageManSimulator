@@ -6,7 +6,7 @@ public class MinigameInteract : MonoBehaviour, IInteractable
     [SerializeField] MinigameType minigameType; // Type of the minigame to be played // choosed in inspector
     [SerializeField] BoxDatas boxData; // script that holds UI Prefabs for minigames
     [SerializeField] AudioSource audioSource; // script that holds UI Prefabs for minigames
-
+    bool isCompleted = false; 
     GameObject minigameUI;
 
     void Start()
@@ -30,7 +30,10 @@ public class MinigameInteract : MonoBehaviour, IInteractable
     /// </summary>
     public void Interact()
     {
-        UIManager.Instance.GenerateMinigamePanel(minigameUI, gameObject);
+        if (!isCompleted)
+            UIManager.Instance.GenerateMinigamePanel(minigameUI, gameObject);  
+        else
+            ToastNotification.Show("You have already completed this minigame!", 2, "alert");
         audioSource.PlayOneShot(AudioManager.Instance.interactSfx);
     }
 
@@ -59,6 +62,7 @@ public class MinigameInteract : MonoBehaviour, IInteractable
         // Rare: 0.80   - 0.92  -> (%12) (0.80 + 0.12)
         // Epic: 0.92   - 0.98  -> (%6)  (0.92 + 0.06)
         // Legendary: 0.98 - 1.0  -> (%2)  (0.98 + 0.02)
+        isCompleted = true;
 
         float chanceValue = Random.Range(0f, 1f); // example data 0.8549
         float cumulativeProbability = 0f;

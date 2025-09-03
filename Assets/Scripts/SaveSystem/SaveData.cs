@@ -5,8 +5,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class SaveData : MonoBehaviour
 {
+    public static SaveData Instance;
+
     public Inventory inventory = new Inventory();
 
+    void Awake() {
+        Instance = this;
+        LoadFromBinary();
+    }
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
@@ -23,6 +30,7 @@ public class SaveData : MonoBehaviour
     {
         string filePath = Application.persistentDataPath + "/GameData.dat";
         BinaryFormatter formatter = new BinaryFormatter();
+
         FileStream stream = new FileStream(filePath, FileMode.Create);
 
         formatter.Serialize(stream, inventory);
@@ -33,6 +41,8 @@ public class SaveData : MonoBehaviour
 
     public void LoadFromBinary()
     {
+
+
         string filePath = Application.persistentDataPath + "/GameData.dat";
         if (File.Exists(filePath))
         {
@@ -58,6 +68,7 @@ public class Inventory
     public int experience;
     public int level;
     public List<Items> storage = new List<Items>();
+    public PlayerSkills playerSkills = new PlayerSkills();
 }
 
 [System.Serializable]
@@ -65,4 +76,9 @@ public class Items
 {
     public float asdf;
     public float ghjk;
+}
+[System.Serializable]
+public class PlayerSkills
+{
+    public string[] equippedSkillIDs = new string[3];
 }

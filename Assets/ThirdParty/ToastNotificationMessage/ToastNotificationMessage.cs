@@ -22,6 +22,8 @@ public class ToastNotificationMessage : MonoBehaviour
     // If the Start method is disturbing some part of your game's code, you can change it to Awake
     void Start()
     {
+        timerRectTransform = GameObject.Find("Timer").GetComponent<RectTransform>(); 
+
         messageTime = messageTime <= -1 ? ToastNotification.minimumMessageTime : messageTime;
 
         RectTransform messageRect = transform.parent.GetComponent<RectTransform>();
@@ -75,11 +77,15 @@ public class ToastNotificationMessage : MonoBehaviour
         // Calculates new timer width based on percentage of time remaining
         float newWidth = initialWidth * remainingTimePercentage;
 
-        // Changes the calculation depending on which side the timer is going to reduce
-        timerRectTransform.sizeDelta = new Vector2(newWidth, timerRectTransform.sizeDelta.y);
-        if (leftToRight == false)
-            timerRectTransform.anchoredPosition = new Vector2(-initialWidth + timerRectTransform.sizeDelta.x, timerRectTransform.anchoredPosition.y );
+        if (timerRectTransform != null)
+        {
+            // Changes the calculation depending on which side the timer is going to reduce
+                timerRectTransform.sizeDelta = new Vector2(newWidth, timerRectTransform.sizeDelta.y);
+                if (leftToRight == false)
+                    timerRectTransform.anchoredPosition = new Vector2(-initialWidth + timerRectTransform.sizeDelta.x, timerRectTransform.anchoredPosition.y );
 
+        }
+        
     }
 
     //Checks whether the hideOnClick variable is enabled in ToastNotification, so that it can only be closed when clicked

@@ -347,7 +347,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -444,6 +444,7 @@ GameObject:
   - component: {fileID: 6621535572691391067}
   - component: {fileID: 4173395579856475327}
   - component: {fileID: 5395184382279291518}
+  - component: {fileID: 2393074687523525616}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -604,3 +605,20 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 1, y: 1, z: 1}
+--- !u!114 &2393074687523525616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9064848356343979267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weight: 1
+  FocusTracking: 0
+  FocusTarget: {fileID: 0}
+  FocusOffset: 0
+  Profile: {fileID: 11400000, guid: f966c51a705074a1e92fdf0cb2abfc0c, type: 2}

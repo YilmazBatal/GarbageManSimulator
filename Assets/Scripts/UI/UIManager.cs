@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,12 +8,14 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
+    [Header("Panel List")]
+    [SerializeField] private List<GameObject> panels;
+    [SerializeField] public GameObject pausePanel;
+    [SerializeField] public GameObject skillMenu;
+
     [Header("Canvas")]
     [SerializeField] Canvas mainCanvas;
     [SerializeField] public ToastNotificationMessage toastNotificationMessage;
-
-    [Header("Panels")]
-    [SerializeField] public GameObject pausePanel;
 
     [Header("HUD")]
     [SerializeField] public Image experienceFill;
@@ -27,6 +30,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Panel check")]
     public GameObject activePanel = null;
+    public bool isActivePanelMinigame;
     public bool isAnyPanelOpen => activePanel != null;
 
     [Header("Minigames")]
@@ -59,6 +63,11 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        UpdateHUD();
+    }
+    
     #region Panel Management
 
     public void OpenPanel(GameObject panel)
@@ -68,8 +77,7 @@ public class UIManager : MonoBehaviour
             ClosePanel();
             panel.SetActive(true);
             activePanel = panel;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            ShowCursor();
         }
     }
     public void ClosePanel()
@@ -80,20 +88,32 @@ public class UIManager : MonoBehaviour
             if (activeMinigamePanel != null) // if there is an active minigame panel
             {
                 Destroy(activeMinigamePanel);
+                isActivePanelMinigame = false;
                 activeMinigamePanel = null;
                 activePanel = null;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+                HideCursor();
                 return;
                 
             }
             activePanel.SetActive(false);
             activePanel = null;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            HideCursor();
         }
 
     }
+
+    void ShowCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None; // serbest
+    }
+
+    void HideCursor()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked; // oyun ekranına sabit
+    }
+
     #endregion
 
     #region Buttons
@@ -127,6 +147,7 @@ public class UIManager : MonoBehaviour
         GameObject minigamePanel = Instantiate(minigameUI, mainCanvas.transform);
         activeMinigamePanel = minigamePanel;
         activePanel = minigamePanel;
+        isActivePanelMinigame = true;
         currentCrate = crate;
 
         crate.GetComponent<MinigameInteract>().enabled = false; // Disable interaction with the crate while minigame is active so no 2nd player can use it
@@ -138,13 +159,38 @@ public class UIManager : MonoBehaviour
         
         // eriştim
         currentCrate.GetComponent<MinigameInteract>().GenerateReward();
-
-        ToastNotification.Show("You are rewarded now!", 2, "success");
+        if (ToastNotification.isStoped)
+        {
+            ToastNotification.Show("You are rewarded now!", 2, "success");
+        }
+        
         LeanTween.scale(minigamePanel, Vector3.zero, 0.5f)
             .setEase(LeanTweenType.easeInCubic)
             .setOnComplete(ClosePanel);
 
         currentCrate = null; // reset current crate to prevent glitches
+    }
+
+    #endregion
+
+    #region HUD Updates
+
+    private void UpdateHUD()
+    {
+        UpdateLevel();
+        UpdateMoney();
+    }
+
+    private void UpdateMoney()
+    {
+        money.text = "$" + SaveData.Instance.inventory.money.ToString("F2");
+    }
+
+    private void UpdateLevel()
+    {
+        lvCurrent.text = SaveData.Instance.inventory.level.ToString();
+        lvNext.text = (SaveData.Instance.inventory.level + 1).ToString();
+        experienceText.text = SaveData.Instance.inventory.experience.ToString() + " / " + "000000"; // hard coded for now
     }
 
     #endregion

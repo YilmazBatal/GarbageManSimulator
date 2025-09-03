@@ -52,4 +52,24 @@ public class InputController : MonoBehaviour
                 UIManager.Instance.ClosePanel();
         }
     }
+    void OnSkillMenu(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            if (UIManager.Instance.activePanel == null)
+                UIManager.Instance.OpenPanel(UIManager.Instance.skillMenu);
+            else if (UIManager.Instance.activePanel == UIManager.Instance.skillMenu)
+                UIManager.Instance.ClosePanel();
+            else if (UIManager.Instance.isAnyPanelOpen)
+            {
+                if (UIManager.Instance.isActivePanelMinigame)
+                    ToastNotification.Show("Can't open skill menu in puzzles", 2, "alert");
+                else
+                {
+                    UIManager.Instance.ClosePanel();
+                    UIManager.Instance.OpenPanel(UIManager.Instance.skillMenu);
+                }
+            }
+        }
+    }
 }
