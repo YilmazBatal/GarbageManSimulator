@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"id":"89eb509afd8dea20","type":"group","x":580,"y":-479,"width":1300,"height":1519,"color":"4","label":"Trash Managing System"},
+		{"id":"156baa5c5cf12eb4","type":"text","text":"### **Item**\n- Value ($) / Worth\n- Exp point","x":240,"y":-420,"width":250,"height":140,"color":"1"},
+		{"id":"692c664b3b55a292","type":"text","text":"### **Truck**","x":240,"y":-180,"width":250,"height":50,"color":"1"},
+		{"id":"2a1d079fed5d09fc","type":"text","text":"### **Junkyard**\n-> Day has ended and Game saved","x":238,"y":14,"width":250,"height":126,"color":"1"},
+		{"id":"04d2f5fdb3e3e6f3","type":"text","text":"VISALIZE TRASH SYSTEM SO U CAN UNDERSTAND ALSO GIVE EXPERIENCE DEPENDING ON TRASH THAT IS BEEN DEPOSITED TO VEHICLE","x":580,"y":-780,"width":362,"height":212},
+		{"id":"bab79f061b7ed0c5","type":"file","file":"Systems/Level System.md","x":-236,"y":-370,"width":445,"height":409,"color":"3"},
+		{"id":"ae2691462be230f1","type":"file","file":"Script commentary/TrashCollector.cs Explanation.md","x":620,"y":-420,"width":560,"height":960,"color":"#c671fe"},
+		{"id":"ca08b26b4f080f83","type":"file","file":"Script commentary/TrashBin.cs Explanation.md","x":1220,"y":-420,"width":612,"height":960,"color":"#c671fe"},
+		{"id":"cac8982b3bbc1915","type":"file","file":"Ekran görüntüsü 2025-09-01 225407.png","x":-360,"y":240,"width":569,"height":320}
+	],
+	"edges":[
+		{"id":"11c01ed9d387f7ff","fromNode":"156baa5c5cf12eb4","fromSide":"bottom","toNode":"692c664b3b55a292","toSide":"top","color":"2","label":"Experience"},
+		{"id":"e9e2f61eb66128d8","fromNode":"692c664b3b55a292","fromSide":"bottom","toNode":"2a1d079fed5d09fc","toSide":"top","color":"2","label":"Money"}
+	]
+}

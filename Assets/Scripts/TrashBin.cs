@@ -110,3 +110,4 @@ public class TrashBin : MonoBehaviour
             inventory.Add(new TrashSlot { trashType = type, amount = 1 });
     }
 }
+

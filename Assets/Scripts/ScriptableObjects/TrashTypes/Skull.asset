@@ -18,6 +18,7 @@ MonoBehaviour:
   madeOf: 2
   weight: 2
   value: 100
+  experience: 20
   isToxic: 0
   isRecyclable: 0
   trashIcon: {fileID: -7907368816393526887, guid: 215687feeab0b7445b4a1cd86c82c2e1,

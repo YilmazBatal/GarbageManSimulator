@@ -19,33 +19,38 @@ public class TrashCollector : MonoBehaviour
     }
 
     public void AddFromBin(List<TrashSlot> binInventory)
-{
-    foreach (TrashSlot slot in binInventory)
     {
-        int spaceLeft = vehicleCapacity - vehicleTrashCount;
-        if (spaceLeft <= 0)
-            break; // araç dolu
+        foreach (TrashSlot slot in binInventory)
+        {
+            int spaceLeft = vehicleCapacity - vehicleTrashCount;
+            if (spaceLeft <= 0)
+                break; // araç dolu
 
-        // Kaç tane aktarılabilir?
-        int transferable = Mathf.Min(spaceLeft, slot.amount);
+            
+            // Kaç tane aktarılabilir?
+            int transferable = Mathf.Min(spaceLeft, slot.amount);
 
-        // Var olan aynı türden varsa ekle
-        TrashSlot existing = vehicleInventory.Find(s => s.trashType == slot.trashType);
-        if (existing != null)
-            existing.amount += transferable;
-        else
-            vehicleInventory.Add(new TrashSlot { trashType = slot.trashType, amount = transferable });
+            LevelSystem levelSystem = new LevelSystem();
+            levelSystem.AddExp(transferable * slot.trashType.experience); // Her çöp için 2 exp
 
-        // Araçtaki mevcut çöp sayısını arttır
-        vehicleTrashCount += transferable;
+            // Var olan aynı türden varsa ekle
+            TrashSlot existing = vehicleInventory.Find(s => s.trashType == slot.trashType);
+            if (existing != null)
+                existing.amount += transferable;
+            else
+                vehicleInventory.Add(new TrashSlot { trashType = slot.trashType, amount = transferable });
 
-        // Bin'den eksilt
-        slot.amount -= transferable;
+            // Araçtaki mevcut çöp sayısını arttır
+            vehicleTrashCount += transferable;
+
+            // Bin'den eksilt
+            slot.amount -= transferable;
+        }
+
+        infoText.text = vehicleTrashCount + " / " + vehicleCapacity;
     }
 
-    infoText.text = vehicleTrashCount + " / " + vehicleCapacity;
-}
-
+    #region Is Bins near the Vehicle
     void OnTriggerEnter(Collider other)
     {
         // Çarpılan objede TrashBin scripti var mı diye kontrol et
@@ -66,4 +71,5 @@ public class TrashCollector : MonoBehaviour
     {
         infoText.text = vehicleTrashCount.ToString() + "/" + vehicleCapacity;
     }
+    #endregion
 }

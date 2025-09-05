@@ -23,8 +23,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TMP_Text lvCurrent;
     [SerializeField] public TMP_Text lvNext;
     [Space(15)]
-    [SerializeField] public TMP_Text money;
-    [SerializeField] public TMP_Text day;
+    [SerializeField] public TMP_Text moneyText;
+    [SerializeField] public TMP_Text dayText;
     [Space(15)]
     [SerializeField] public Image[] skillIcons;
 
@@ -183,14 +183,14 @@ public class UIManager : MonoBehaviour
 
     private void UpdateMoney()
     {
-        money.text = "$" + SaveData.Instance.inventory.money.ToString("F2");
+        // moneyText.text = "$" +  BaseData.Instance.junkyardData.moneyData.money.ToString("F2");
     }
 
     private void UpdateLevel()
     {
-        lvCurrent.text = SaveData.Instance.inventory.level.ToString();
-        lvNext.text = (SaveData.Instance.inventory.level + 1).ToString();
-        experienceText.text = SaveData.Instance.inventory.experience.ToString() + " / " + "000000"; // hard coded for now
+        // lvCurrent.text = BaseData.Instance.inventory.level.ToString();
+        // lvNext.text = (BaseData.Instance.inventory.level + 1).ToString();
+        // experienceText.text = BaseData.Instance.inventory.experience.ToString() + " / " + "000000"; // hard coded for now
     }
 
     #endregion

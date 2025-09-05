@@ -15,8 +15,10 @@ MonoBehaviour:
   trashName: Can
   trashDescription: It may cut your hands.
   rarity: 1
+  madeOf: 0
   weight: 2
   value: 0.25
+  experience: 7
   isToxic: 0
   isRecyclable: 1
   trashIcon: {fileID: -7907368816393526887, guid: 215687feeab0b7445b4a1cd86c82c2e1,

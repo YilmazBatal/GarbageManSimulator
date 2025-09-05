@@ -2,17 +2,18 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class SaveData : MonoBehaviour
+public class BaseData : MonoBehaviour
 {
-    public static SaveData Instance;
+    public static BaseData Instance;
 
-    public Inventory inventory = new Inventory();
+    public JunkyardData junkyardData = new JunkyardData();
 
-    void Awake() {
+    void Awake()
+    {
         Instance = this;
         LoadFromBinary();
     }
-    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
@@ -27,31 +28,31 @@ public class SaveData : MonoBehaviour
 
     public void SaveToBinary()
     {
-        string filePath = Application.persistentDataPath + "/PlayerData.dat";
+        string filePath = Application.persistentDataPath + "/Junkyard.dat";
         BinaryFormatter formatter = new BinaryFormatter();
 
         FileStream stream = new FileStream(filePath, FileMode.Create);
 
-        formatter.Serialize(stream, inventory);
+        formatter.Serialize(stream, junkyardData);
         stream.Close();
 
-        Debug.Log("Saved to Binary | PlayerData: " + filePath);
+        Debug.Log("Saved to Binary | Junkyard: " + filePath);
     }
 
     public void LoadFromBinary()
     {
 
 
-        string filePath = Application.persistentDataPath + "/PlayerData.dat";
+        string filePath = Application.persistentDataPath + "/Junkyard.dat";
         if (File.Exists(filePath))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(filePath, FileMode.Open);
 
-            inventory = (Inventory)formatter.Deserialize(stream);
+            junkyardData = (JunkyardData)formatter.Deserialize(stream);
             stream.Close();
 
-            Debug.Log("Loaded from Binary | PlayerData");
+            Debug.Log("Loaded from Binary | Junkyard");
         }
         else
         {
@@ -61,12 +62,20 @@ public class SaveData : MonoBehaviour
 }
 
 [System.Serializable]
-public class Inventory
+public class JunkyardData
 {
-    public PlayerSkills playerSkills = new PlayerSkills();
+    public LevelData levelData = new LevelData();
+    public MoneyData moneyData = new MoneyData();
 }
 [System.Serializable]
-public class PlayerSkills
+public class LevelData
 {
-    public string[] equippedSkillIDs = new string[3];
+    public int level = 1;
+    public int experience;
+}
+[System.Serializable]
+public class MoneyData
+{
+    public float money;
+    public float totalMoneyEarned;
 }

@@ -9,6 +9,7 @@ public class TrashTypes : ScriptableObject
     public TrashMadeOf madeOf;
     public float weight;
     public float value; // Value in game currency
+    public int experience; 
     public bool isToxic;
     public bool isRecyclable; // Indicates if the trash can be converted into sellable materials
     public Sprite trashIcon;

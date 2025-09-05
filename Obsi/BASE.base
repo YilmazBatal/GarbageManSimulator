@@ -1,0 +1,18 @@
+views:
+  - type: table
+    name: Table
+    sort:
+      - property: file.name
+        direction: ASC
+  - type: table
+    name: View
+    sort:
+      - property: file.name
+        direction: ASC
+    rowHeight: medium
+  - type: cards
+    name: CardView
+    cardSize: 310
+    image: file.file
+    imageFit: ""
+    imageAspectRatio: 0.35
